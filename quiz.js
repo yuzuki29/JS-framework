@@ -1,5 +1,7 @@
 `use strict`;
-//0.基本データ
+/*===============================================
+ 基本データ
+ ================================================ */
 //地理のクイズデータ
 const data = [
     {
@@ -14,7 +16,7 @@ const data = [
     },
     {
         quetion: "日本で一番人口密度の高い都道府県は？",
-        answers: ["東京都", "茨城県", "福島県", "青森県"],
+        answers: ["東京都", "青森県", "福島県", "茨城県"],
         correct: "青森県"
     }
 ]
@@ -38,7 +40,9 @@ let questions = getRandamQuestions();
 let questionIndex = 0;
 //正解数
 let correctCount = 0;
-//1.要素一覧
+/*===============================================
+要素一覧
+ ================================================ */
 const startPage = document.getElementById("startPage");
 const questionPage = document.getElementById("questionPage");
 const resultPage = document.getElementById("resultPage");
@@ -56,6 +60,9 @@ const dialog = document.getElementById("dialog");
 const questionResult = document.getElementById("questionResult");
 const nextButton = document.getElementById("nextButton");
 //2.処理
+/*===============================================
+ イベント関連の関数一覧
+ ================================================ */
 startButton.addEventListener("click", clickstartButton);
 optionButtons.forEach((button) => {
     button.addEventListener("click", clickOptionButton);
@@ -63,7 +70,10 @@ optionButtons.forEach((button) => {
 nextButton.addEventListener("click", clickNextButton);
 
 backButton.addEventListener("click", clickBackButton);
-//関数一覧
+
+/*===============================================
+ 関数一覧
+ ================================================ */
 function questionTimeOver() {
     // 時間切れの場合は不正解とする
     questionResult.innerText = "✖";
@@ -86,7 +96,7 @@ function startProgress() {
         const Progress = ((currentTime - startTime) / ANSWER_TIME_MS) * 100;
         // progressバーに経過時間を反映する（表示）
         questionProgress.value = Progress;
-        // 経過時間が街道時間を超えた場合、インターバルを停止する
+        // 経過時間が解答時間を超えた場合、インターバルを停止する
         if (startTime + ANSWER_TIME_MS <= currentTime) {
             stopProgress();
             questionTimeOver();
@@ -95,21 +105,6 @@ function startProgress() {
         // 経過時間を更新加算する
         elapsedTime += INTERVAL_TIME_MS;
     }, INTERVAL_TIME_MS);
-    // // インターバルタイムを取得する
-    // intervalId = setInterval(() => {
-    //     // 経過時間計測する
-    //     const Progress = (elapsedTime / ANSWER_TIME_MS) * 100;
-    //     // progressバーに経過時間を反映する（表示）
-    //     questionProgress.value = Progress;
-    //     // 経過時間が街道時間を超えた場合、インターバルを停止する
-    //     if (ANSWER_TIME_MS <= elapsedTime) {
-    //         stopProgress();
-    //         questionTimeOver();
-    //         return;
-    //     }
-    //     // 経過時間を更新加算する
-    //     elapsedTime += INTERVAL_TIME_MS;
-    // }, INTERVAL_TIME_MS);
 }
 function stopProgress() {
     // インターバルを停止する
@@ -172,7 +167,9 @@ function setQuestion() {
         optionButtons[i].innerText = question.answers[i];
     }
 }
-//3.イベント関連の関数一覧
+/*===============================================
+ イベント関連の関数一覧
+ ================================================ */
 function clickOptionButton(event) {
     // 解答の経過時間を止める
     stopProgress();
@@ -196,7 +193,6 @@ function clickOptionButton(event) {
     } else {
         nextButton.innerText = "次の問題へ";
     }
-    // dialog.showModal();
     dialog.showModal();
 }
 function clickstartButton() {
